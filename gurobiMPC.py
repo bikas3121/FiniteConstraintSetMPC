@@ -43,7 +43,7 @@ def MPC(x0, N, ref,Q, A, B, C, D, t):
         obj = 0                  # initialize objective function
         for i in range(0,N):
             k = 2*i
-            con = u[i]-ref[j]
+            con = u[i]-ref[j+1]
             e_t = C @ x[k:k+2] + D*con
             obj = obj + e_t*e_t
             
@@ -52,7 +52,7 @@ def MPC(x0, N, ref,Q, A, B, C, D, t):
         for i in range(0,N):
             k = 2*i
             st =x[k:k+2] 
-            con = u[i]-ref[j]  # current control 
+            con = u[i]-ref[j+1]  # current control 
             f_value = A @ st + B * con #function value
             st_next = x[k+2: k+4]
             m.addConstr(st_next == f_value)
